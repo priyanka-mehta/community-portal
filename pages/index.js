@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css';
 
 import connectMongo from '../utils/connectMongo';
 import Test from '../models/testModel';
+import UserList from '../components/userList';
+import AddUser from '../components/addUser';
 
 export const getServerSideProps = async () => {
   try {
@@ -29,21 +31,6 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({ tests }) {
-  const createTest = async () => {
-    const randomNum = Math.floor(Math.random() * 1000);
-    const res = await fetch('/api/test/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: `Test ${randomNum}`,
-        email: `test${randomNum}@test.com`,
-      }),
-    });
-    const data = await res.json();
-    console.log(data);
-  };
   return (
     <div className={styles.container}>
       <Head>
@@ -53,23 +40,13 @@ export default function Home({ tests }) {
       </Head>
 
       <main className={styles.main}>
-        <button onClick={createTest}>Create Test</button>
+        <AddUser />
+        {/* <button onClick={createTest}>Create Test</button> */}
         <h1 className={styles.title}>
           {/* Welcome to <a href='https://nextjs.org'>Next.js!</a> */}
         </h1>
 
-        <div className={styles.grid}>
-          {tests.map((test) => (
-            <a
-              href=""
-              key={test._id}
-              className={styles.card}
-            >
-              <h2>{test.name} &rarr;</h2>
-              <p>{test.email}</p>
-            </a>
-          ))}
-        </div>
+        <UserList tests={tests} />
       </main>
       <footer className={styles.footer}>
         <a

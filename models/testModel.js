@@ -5,8 +5,16 @@ const testSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
   },
+  gender: {
+    type: String,
+    required: true
+  },
+  mobileNumber: {
+    type: Number,
+    required: true
+  }
 });
 
 const Test = models.Test || model('Test', testSchema);
