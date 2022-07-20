@@ -9,6 +9,7 @@ const Input = (props) => {
         type={type}
         name={name}
         onChange={onChange}
+        className="form-control"
       />
     </div>
   );
