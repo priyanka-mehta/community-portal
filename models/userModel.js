@@ -1,9 +1,11 @@
 import { Schema, model, models } from 'mongoose';
 
-const testSchema = new Schema({
+const userSchema = new Schema({
+  familyId: String,
   fname: String,
   mname: String,
   lname: String,
+  relation: String,
   email: {
     type: String,
     required: true,
@@ -19,6 +21,6 @@ const testSchema = new Schema({
   }
 });
 
-const Test = models.Test || model('Test', testSchema);
+const User = models.User || model('User', userSchema);
 
-export default Test;
+export default User;

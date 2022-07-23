@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
+import Router from "next/router";
 import Input from './common_components/Input';
 
 const options = [
@@ -7,30 +8,44 @@ const options = [
   { value: 'female', label: 'Female' }
 ];
 
-const AddUser = () => {
+const RelationOptions = [
+  { value: 'self', label: 'Self' },
+  { value: 'wife', label: 'Wife' },
+  { value: 'son', label: 'Son' },
+  { value: 'daughter', label: 'Daughter' },
+  { value: 'daughter-in-law', label: 'Daughter-in-law' },
+  { value: 'grand-son', label: 'Grand-son' },
+  { value: 'grand-daughter', label: 'Grand-daughter' }
+]
+
+const AddUserComponent = () => {
 
   const [user, setUser] = useState({});
   const [gender, setGender] = useState(null);
+  const [relation, setRelation] = useState(null);
 
   const addNewUser = async () => {
     const { fname, mname, lname, email, mobileNumber } = user;
     const randomNum = Math.floor(Math.random() * 1000);
-    const res = await fetch('/api/test/add', {
+    const res = await fetch('/api/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        familyId: fname + mname + lname,
         fname,
         mname,
         lname,
         email,
+        relation,
         gender: gender.value,
         mobileNumber
       }),
     });
     const data = await res.json();
     console.log(data);
+    Router.push("/");
   };
 
   const handleChange = (e) => {
@@ -57,6 +72,12 @@ const AddUser = () => {
         name="lname"
         onChange={handleChange}
       />
+      <label>Relation</label>
+      <Select
+        defaultValue={relation}
+        onChange={setRelation}
+        options={RelationOptions}
+      />
       <Input
         label="Email"
         type="text"
@@ -72,7 +93,7 @@ const AddUser = () => {
       <Input
         label="Mobile"
         type="text"
-        name="mobile"
+        name="mobileNumber"
         onChange={handleChange}
       />
       <Input
@@ -86,4 +107,4 @@ const AddUser = () => {
   );
 }
 
-export default AddUser;
+export default AddUserComponent;
