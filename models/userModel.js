@@ -6,14 +6,15 @@ const userSchema = new Schema({
   mname: String,
   lname: String,
   relation: String,
+  dob: String,
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: true
   },
   gender: {
     type: String,
-    required: true
+    required: false
   },
   mobileNumber: {
     type: Number,

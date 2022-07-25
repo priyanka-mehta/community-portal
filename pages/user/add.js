@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
-import Router from "next/router";
-import Input from './common_components/Input';
+import Router, { useRouter } from "next/router";
+import Input from '../../components/common/Input';
 
 const options = [
   { value: 'male', label: 'Male' },
@@ -18,34 +18,34 @@ const RelationOptions = [
   { value: 'grand-daughter', label: 'Grand-daughter' }
 ]
 
-const AddUserComponent = () => {
+const AddUser = () => {
 
+  const router = useRouter();
   const [user, setUser] = useState({});
   const [gender, setGender] = useState(null);
   const [relation, setRelation] = useState(null);
 
   const addNewUser = async () => {
-    const { fname, mname, lname, email, mobileNumber } = user;
-    const randomNum = Math.floor(Math.random() * 1000);
+    const { fname, mname, lname, email, mobileNumber, dob } = user;
     const res = await fetch('/api/user/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        familyId: fname + mname + lname,
+        familyId: router.query.familyId,
         fname,
         mname,
         lname,
         email,
-        relation,
+        relation: relation.value,
         gender: gender.value,
-        mobileNumber
+        mobileNumber,
+        dob
       }),
     });
     const data = await res.json();
-    console.log(data);
-    Router.push("/");
+    Router.push(`/user/${router.query.familyId}`);
   };
 
   const handleChange = (e) => {
@@ -107,4 +107,4 @@ const AddUserComponent = () => {
   );
 }
 
-export default AddUserComponent;
+export default AddUser;

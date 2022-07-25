@@ -3,7 +3,6 @@ import React from 'react';
 const UserList = ({ users }) => {
   return (
     <>
-      <a href="/add-user">Add User</a>
       <div className="">
         <table className="table table-striped table-hover">
           <thead>
