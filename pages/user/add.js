@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import Router, { useRouter } from "next/router";
 import Input from '../../components/common/Input';
+import { checkValidation } from '../../components/common/Validation';
 
-const options = [
+const GenderOptions = [
   { value: 'male', label: 'Male' },
   { value: 'female', label: 'Female' }
 ];
@@ -21,9 +22,26 @@ const RelationOptions = [
 const AddUser = () => {
 
   const router = useRouter();
-  const [user, setUser] = useState({});
-  const [gender, setGender] = useState(null);
-  const [relation, setRelation] = useState(null);
+  const [user, setUser] = useState({
+    fname: '',
+    mname: '',
+    lname: '',
+    email: '',
+    relation: '',
+    gender: '',
+    mobileNumber: '',
+    dob: ''
+  });
+  const [error, setError] = useState({
+    fname: '',
+    mname: '',
+    lname: '',
+    email: '',
+    relation: '',
+    gender: '',
+    mobileNumber: '',
+    dob: ''
+  });
 
   const addNewUser = async () => {
     const { fname, mname, lname, email, mobileNumber, dob } = user;
@@ -48,62 +66,88 @@ const AddUser = () => {
     Router.push(`/user/${router.query.familyId}`);
   };
 
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value })
+  const handleChange = (name, value) => {
+    setUser({ ...user, [name]: value })
   }
 
+  const handleBlur = (name, value) => {
+    console.log(name, value);
+    let errorObj = checkValidation(name, value);
+    setError({ ...error, ...errorObj })
+  };
+
   return (
-    <div>
+    <form>
       <Input
         label="First Name"
         type="text"
         name="fname"
-        onChange={handleChange}
+        value={user.fname}
+        errorMsg={error.fname}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
       <Input
         label="Middle Name"
         type="text"
         name="mname"
-        onChange={handleChange}
+        value={user.mname}
+        errorMsg={error.mname}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
       <Input
         label="Last Name"
         type="text"
         name="lname"
-        onChange={handleChange}
+        value={user.lname}
+        errorMsg={error.lname}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
       <label>Relation</label>
       <Select
-        defaultValue={relation}
-        onChange={setRelation}
+        defaultValue={user.relation}
         options={RelationOptions}
+        value={user.relation}
+        onChange={(e) => handleChange("relation", e)}
       />
       <Input
         label="Email"
         type="text"
         name="email"
-        onChange={handleChange}
+        value={user.email}
+        errorMsg={error.email}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
       <label>Gender</label>
       <Select
-        defaultValue={gender}
-        onChange={setGender}
-        options={options}
+        defaultValue={user.gender}
+        options={GenderOptions}
+        value={user.gender}
+        onChange={(e) => handleChange("gender", e)}
       />
       <Input
         label="Mobile"
         type="text"
         name="mobileNumber"
-        onChange={handleChange}
+        value={user.mobileNumber}
+        errorMsg={error.mobileNumber}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
       <Input
         label="Date of Birth"
         type="date"
         name="dob"
-        onChange={handleChange}
+        value={user.dob}
+        errorMsg={error.dob}
+        onChange={(e) => handleChange(e.target.name, e.target.value)}
+        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
-      <button onClick={addNewUser}>Add user</button>
-    </div>
+      <button type="submit" className="btn btn-primary" onClick={addNewUser}>Add user</button>
+    </form>
   );
 }
 
