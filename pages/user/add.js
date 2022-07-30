@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select from 'react-select';
 import Router, { useRouter } from "next/router";
 import Input from '../../components/common/Input';
-import { checkValidation } from '../../components/common/Validation';
+import { checkValidation, handleSubmitValidation } from '../../components/common/Validation';
 
 const GenderOptions = [
   { value: 'male', label: 'Male' },
@@ -26,7 +26,6 @@ const AddUser = () => {
     fname: '',
     mname: '',
     lname: '',
-    email: '',
     relation: '',
     gender: '',
     mobileNumber: '',
@@ -36,34 +35,39 @@ const AddUser = () => {
     fname: '',
     mname: '',
     lname: '',
-    email: '',
     relation: '',
     gender: '',
     mobileNumber: '',
     dob: ''
   });
 
-  const addNewUser = async () => {
-    const { fname, mname, lname, email, mobileNumber, dob } = user;
-    const res = await fetch('/api/user/add', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        familyId: router.query.familyId,
-        fname,
-        mname,
-        lname,
-        email,
-        relation: relation.value,
-        gender: gender.value,
-        mobileNumber,
-        dob
-      }),
-    });
-    const data = await res.json();
-    Router.push(`/user/${router.query.familyId}`);
+  const addNewUser = async (e) => {
+    e.preventDefault();
+    const { fname, mname, lname, email, mobileNumber, dob, relation, gender } = user;
+
+    let validation = handleSubmitValidation(user)
+    setError(validation.errors)
+
+    if (validation.formIsValid) {
+      const res = await fetch('/api/user/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          familyId: router.query.familyId,
+          fname,
+          mname,
+          lname,
+          relation: relation.value,
+          gender: gender.value,
+          mobileNumber,
+          dob
+        }),
+      });
+      const data = await res.json();
+      Router.push(`/user/${router.query.familyId}`);
+    }
   };
 
   const handleChange = (name, value) => {
@@ -105,29 +109,26 @@ const AddUser = () => {
         onChange={(e) => handleChange(e.target.name, e.target.value)}
         onBlur={(e) => handleBlur(e.target.name, e.target.value)}
       />
-      <label>Relation</label>
-      <Select
-        defaultValue={user.relation}
-        options={RelationOptions}
-        value={user.relation}
-        onChange={(e) => handleChange("relation", e)}
-      />
-      <Input
-        label="Email"
-        type="text"
-        name="email"
-        value={user.email}
-        errorMsg={error.email}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <label>Gender</label>
-      <Select
-        defaultValue={user.gender}
-        options={GenderOptions}
-        value={user.gender}
-        onChange={(e) => handleChange("gender", e)}
-      />
+      <div>
+        <label>Relation</label>
+        <Select
+          defaultValue={user.relation}
+          options={RelationOptions}
+          value={user.relation}
+          onChange={(e) => handleChange("relation", e)}
+        />
+        {error.relation}
+      </div>
+      <div>
+        <label>Gender</label>
+        <Select
+          defaultValue={user.gender}
+          options={GenderOptions}
+          value={user.gender}
+          onChange={(e) => handleChange("gender", e)}
+        />
+        {error.gender}
+      </div>
       <Input
         label="Mobile"
         type="text"

@@ -7,11 +7,6 @@ const userSchema = new Schema({
   lname: String,
   relation: String,
   dob: String,
-  email: {
-    type: String,
-    required: false,
-    unique: true
-  },
   gender: {
     type: String,
     required: false
