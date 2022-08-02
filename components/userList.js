@@ -31,7 +31,7 @@ const UserList = ({ users }) => {
   return (
     <>
       <div className="mt-3">
-        <table className="table table-striped table-hover">
+        <table className="table table-striped table-hover" style={{"width":"max-content"}}>
           <thead>
             <th>First Name</th>
             <th>Middle Name</th>
