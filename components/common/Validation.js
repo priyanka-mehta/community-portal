@@ -73,9 +73,9 @@ export const handleSubmitValidation = (user) => {
   if (!fields["mobileNumber"]) {
     formIsValid = false;
     errors["mobileNumber"] = "Mobile Number is Required";
-  } else if (!fields["mobileNumber"].match(mobileRegex)) {
+  } else if (!mobileRegex.test(fields["mobileNumber"])) {
     formIsValid = false;
-    errors["mobileNumber"] = "Mobile number must contain 10 digits";
+    errors["mobileNumber"] = "Mobile number must contain 10 DIGITS";
   }
 
   if (!fields["relation"]) {

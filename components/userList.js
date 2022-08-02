@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Router, { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const UserList = ({ users }) => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const UserList = ({ users }) => {
                 <td>{user.mobileNumber}</td>
                 <td>{user.dob}</td>
                 <td>
-                  <button className='btn btn-primary me-2'> Edit </button>
+                  <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
                   <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
                 </td>
               </tr>
