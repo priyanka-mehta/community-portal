@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-
-import Router, { useRouter } from "next/router";
+import Router, { useRouter } from 'next/router';
 
 const UserList = ({ users }) => {
   const router = useRouter();
@@ -31,7 +30,7 @@ const UserList = ({ users }) => {
   return (
     <>
       <div className="mt-3">
-        <table className="table table-striped table-hover" style={{"width":"max-content"}}>
+        <table className="table table-striped table-hover user-list-table">
           <thead>
             <th>First Name</th>
             <th>Middle Name</th>

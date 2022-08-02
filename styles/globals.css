@@ -28,4 +28,7 @@ a {
   .user-list-nav {
     display: none;
   }
+  .user-list-table {
+    width: max-content;
+  }
 }
