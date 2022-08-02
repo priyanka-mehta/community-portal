@@ -4,21 +4,7 @@ import Router, { useRouter } from "next/router";
 import Input from '../../components/common/Input';
 import { checkValidation, handleSubmitValidation } from '../../components/common/Validation';
 import Navbar from '../../components/Navbar';
-
-const GenderOptions = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' }
-];
-
-const RelationOptions = [
-  { value: 'self', label: 'Self' },
-  { value: 'wife', label: 'Wife' },
-  { value: 'son', label: 'Son' },
-  { value: 'daughter', label: 'Daughter' },
-  { value: 'daughter-in-law', label: 'Daughter-in-law' },
-  { value: 'grand-son', label: 'Grand-son' },
-  { value: 'grand-daughter', label: 'Grand-daughter' }
-]
+import { fullDate, RelationOptions, GenderOptions } from '../../utils/helper';
 
 const AddUser = () => {
 
@@ -44,7 +30,7 @@ const AddUser = () => {
 
   const addNewUser = async (e) => {
     e.preventDefault();
-    const { fname, mname, lname, email, mobileNumber, dob, relation, gender } = user;
+    const { fname, mname, lname, mobileNumber, dob, relation, gender } = user;
 
     let validation = handleSubmitValidation(user)
     setError(validation.errors)
@@ -83,11 +69,11 @@ const AddUser = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
       <form className='container border border-3 mt-5 p-3'>
         <h3 className='mt-3'>Add Family Member</h3>
-        <div class="row mt-3">
-          <div class="col">
+        <div className="row mt-3">
+          <div className="col">
             <Input
               label="First Name"
               type="text"
@@ -98,7 +84,7 @@ const AddUser = () => {
               onBlur={(e) => handleBlur(e.target.name, e.target.value)}
             />
           </div>
-          <div class="col">
+          <div className="col">
             <Input
               label="Middle Name"
               type="text"
@@ -109,7 +95,7 @@ const AddUser = () => {
               onBlur={(e) => handleBlur(e.target.name, e.target.value)}
             />
           </div>
-          <div class="col">
+          <div className="col">
             <Input
               label="Last Name"
               type="text"
@@ -121,8 +107,8 @@ const AddUser = () => {
             />
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col">
+        <div className="row mt-3">
+          <div className="col">
             <label>Relation</label>
             <Select
               defaultValue={user.relation}
@@ -132,7 +118,7 @@ const AddUser = () => {
             />
             <span className='text-danger'>{error.relation}</span>
           </div>
-          <div class="col">
+          <div className="col">
             <label>Gender</label>
             <Select
               defaultValue={user.gender}
@@ -147,6 +133,7 @@ const AddUser = () => {
               label="Date of Birth"
               type="date"
               name="dob"
+              max={fullDate}
               value={user.dob}
               errorMsg={error.dob}
               onChange={(e) => handleChange(e.target.name, e.target.value)}
@@ -154,8 +141,8 @@ const AddUser = () => {
             />
           </div>
         </div>
-        <div class="row mt-3">
-          <div class="col">
+        <div className="row mt-3">
+          <div className="col">
             <Input
               label="Mobile Number"
               type="text"
@@ -167,7 +154,7 @@ const AddUser = () => {
             />
           </div>
         </div>
-        <div class="row mt-3">
+        <div className="row mt-3">
           <button type="submit" className="btn btn-primary mt-2" onClick={addNewUser}>Submit</button>
         </div>
       </form>

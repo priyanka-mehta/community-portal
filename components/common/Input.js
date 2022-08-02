@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Input = (props) => {
-  const { label, type, name, onChange, onBlur, errorMsg } = props;
+  const { label, type, name, onChange, onBlur, errorMsg, max } = props;
   return (
     <div>
       <label htmlFor={name}>{label}</label>
@@ -11,6 +11,7 @@ const Input = (props) => {
         onChange={onChange}
         onBlur={onBlur}
         className="form-control"
+        max={max}
       />
       <span className='text-danger'>{errorMsg}</span>
     </div>
