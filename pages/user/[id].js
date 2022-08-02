@@ -3,6 +3,7 @@ import Link from "next/link";
 import connectMongo from '../../utils/connectMongo';
 import User from '../../models/userModel';
 import UserList from '../../components/userList';
+import Navbar from '../../components/Navbar';
 
 export const getServerSideProps = async (req, res) => {
   try {
@@ -30,10 +31,17 @@ export const getServerSideProps = async (req, res) => {
 
 const Id = ({ users, familyId }) => {
   return (
-    <div>
-      <Link href={{ pathname: '/user/add', query: { familyId: familyId } }}>Add User</Link>
-      <UserList users={users} />
-    </div>
+    <>
+      <div className='user-list-nav'><Navbar /></div>
+      <div className='container mt-5'>
+        <Link href={{ pathname: '/user/add', query: { familyId } }}>
+          <button className='btn btn-primary'>
+            Add Family Member
+          </button>
+        </Link>
+        <UserList users={users} />
+      </div>
+    </>
   );
 }
 

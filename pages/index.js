@@ -4,6 +4,7 @@ import Router from "next/router";
 
 import styles from '../styles/Home.module.css';
 import Input from '../components/common/Input';
+import Navbar from '../components/Navbar';
 
 export default function Home() {
 
@@ -24,9 +25,10 @@ export default function Home() {
         />
       </Head>
 
-      <main className={styles.main}>
+      <Navbar />
+      <main className="container">
         <Input name="familyId" onChange={handleChange} />
-        <button onClick={() => Router.push(`/user/${familyId}`)}>Submit</button>
+        <button onClick={() => Router.push(`/user/${familyId}`)} className="btn btn-primary mt-2">Submit</button>
       </main>
     </div>
   );

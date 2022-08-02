@@ -12,7 +12,7 @@ const Input = (props) => {
         onBlur={onBlur}
         className="form-control"
       />
-      {errorMsg}
+      <span className='text-danger'>{errorMsg}</span>
     </div>
   );
 }

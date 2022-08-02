@@ -3,6 +3,7 @@ import Select from 'react-select';
 import Router, { useRouter } from "next/router";
 import Input from '../../components/common/Input';
 import { checkValidation, handleSubmitValidation } from '../../components/common/Validation';
+import Navbar from '../../components/Navbar';
 
 const GenderOptions = [
   { value: 'male', label: 'Male' },
@@ -81,74 +82,96 @@ const AddUser = () => {
   };
 
   return (
-    <form>
-      <Input
-        label="First Name"
-        type="text"
-        name="fname"
-        value={user.fname}
-        errorMsg={error.fname}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <Input
-        label="Middle Name"
-        type="text"
-        name="mname"
-        value={user.mname}
-        errorMsg={error.mname}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <Input
-        label="Last Name"
-        type="text"
-        name="lname"
-        value={user.lname}
-        errorMsg={error.lname}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <div>
-        <label>Relation</label>
-        <Select
-          defaultValue={user.relation}
-          options={RelationOptions}
-          value={user.relation}
-          onChange={(e) => handleChange("relation", e)}
-        />
-        {error.relation}
-      </div>
-      <div>
-        <label>Gender</label>
-        <Select
-          defaultValue={user.gender}
-          options={GenderOptions}
-          value={user.gender}
-          onChange={(e) => handleChange("gender", e)}
-        />
-        {error.gender}
-      </div>
-      <Input
-        label="Mobile"
-        type="text"
-        name="mobileNumber"
-        value={user.mobileNumber}
-        errorMsg={error.mobileNumber}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <Input
-        label="Date of Birth"
-        type="date"
-        name="dob"
-        value={user.dob}
-        errorMsg={error.dob}
-        onChange={(e) => handleChange(e.target.name, e.target.value)}
-        onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-      />
-      <button type="submit" className="btn btn-primary" onClick={addNewUser}>Add user</button>
-    </form>
+    <>
+    <Navbar />
+      <form className='container border border-3 mt-5 p-3'>
+        <h3 className='mt-3'>Add Family Member</h3>
+        <div class="row mt-3">
+          <div class="col">
+            <Input
+              label="First Name"
+              type="text"
+              name="fname"
+              value={user.fname}
+              errorMsg={error.fname}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+            />
+          </div>
+          <div class="col">
+            <Input
+              label="Middle Name"
+              type="text"
+              name="mname"
+              value={user.mname}
+              errorMsg={error.mname}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+            />
+          </div>
+          <div class="col">
+            <Input
+              label="Last Name"
+              type="text"
+              name="lname"
+              value={user.lname}
+              errorMsg={error.lname}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <label>Relation</label>
+            <Select
+              defaultValue={user.relation}
+              options={RelationOptions}
+              value={user.relation}
+              onChange={(e) => handleChange("relation", e)}
+            />
+            <span className='text-danger'>{error.relation}</span>
+          </div>
+          <div class="col">
+            <label>Gender</label>
+            <Select
+              defaultValue={user.gender}
+              options={GenderOptions}
+              value={user.gender}
+              onChange={(e) => handleChange("gender", e)}
+            />
+            <span className='text-danger'>{error.gender}</span>
+          </div>
+          <div className='col'>
+            <Input
+              label="Date of Birth"
+              type="date"
+              name="dob"
+              value={user.dob}
+              errorMsg={error.dob}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col">
+            <Input
+              label="Mobile Number"
+              type="text"
+              name="mobileNumber"
+              value={user.mobileNumber}
+              errorMsg={error.mobileNumber}
+              onChange={(e) => handleChange(e.target.name, e.target.value)}
+              onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+            />
+          </div>
+        </div>
+        <div class="row mt-3">
+          <button type="submit" className="btn btn-primary mt-2" onClick={addNewUser}>Submit</button>
+        </div>
+      </form>
+    </>
   );
 }
 

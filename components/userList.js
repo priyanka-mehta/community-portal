@@ -3,7 +3,7 @@ import React from 'react';
 const UserList = ({ users }) => {
   return (
     <>
-      <div className="">
+      <div className="mt-3">
         <table className="table table-striped table-hover">
           <thead>
             <th>First Name</th>
