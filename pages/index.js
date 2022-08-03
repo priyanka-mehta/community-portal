@@ -1,18 +1,11 @@
-import { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
-import Router from "next/router";
 
 import styles from '../styles/Home.module.css';
-import Input from '../components/common/Input';
 import Navbar from '../components/Navbar';
+import Login from '../components/Login';
 
 export default function Home() {
-
-  const [familyId, setFamilyId] = useState();
-
-  const handleChange = (e) => {
-    setFamilyId(e.target.value)
-  }
 
   return (
     <div className={styles.container}>
@@ -27,8 +20,7 @@ export default function Home() {
 
       <Navbar />
       <main className="container">
-        <Input name="familyId" onChange={handleChange} />
-        <button onClick={() => Router.push(`/user/${familyId}`)} className="btn btn-primary mt-2">Submit</button>
+        <Login />
       </main>
     </div>
   );

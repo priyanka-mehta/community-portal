@@ -35,6 +35,16 @@ export const checkValidation = (name, value) => {
     case 'relation':
       errorObj.relation = value === '' ? "Relaton is Required" : ""
       break;
+    case 'familyId':
+      errorObj.familyId = value === ''
+        ? "Family ID is Required"
+        : "";
+      break;
+    case 'password':
+      errorObj.password = value === ''
+        ? "Password is Required"
+        : "";
+      break;
     default:
       break;
   }

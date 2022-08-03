@@ -5,6 +5,7 @@ import Input from '../../components/common/Input';
 import { checkValidation, handleSubmitValidation } from '../../components/common/Validation';
 import Navbar from '../../components/Navbar';
 import { fullDate, RelationOptions, GenderOptions } from '../../utils/helper';
+import Loading from '../../components/common/Loading';
 
 const AddUser = () => {
 
@@ -28,6 +29,8 @@ const AddUser = () => {
     dob: ''
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const addNewUser = async (e) => {
     e.preventDefault();
     const { fname, mname, lname, mobileNumber, dob, relation, gender } = user;
@@ -36,6 +39,7 @@ const AddUser = () => {
     setError(validation.errors)
 
     if (validation.formIsValid) {
+      setIsLoading(true);
       const res = await fetch('/api/user/add', {
         method: 'POST',
         headers: {
@@ -53,6 +57,7 @@ const AddUser = () => {
         }),
       });
       const data = await res.json();
+      setIsLoading(false)
       Router.push(`/user/${router.query.familyId}`);
     }
   };
@@ -62,7 +67,6 @@ const AddUser = () => {
   }
 
   const handleBlur = (name, value) => {
-    console.log(name, value);
     let errorObj = checkValidation(name, value);
     setError({ ...error, ...errorObj })
   };
@@ -157,6 +161,7 @@ const AddUser = () => {
         <div className="row mt-3">
           <button type="submit" className="btn btn-primary mt-2" onClick={addNewUser}>Submit</button>
         </div>
+        {isLoading ? <Loading /> : null}
       </form>
     </>
   );

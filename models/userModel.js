@@ -2,6 +2,7 @@ import { Schema, model, models } from 'mongoose';
 
 const userSchema = new Schema({
   familyId: String,
+  password: String,
   fname: String,
   mname: String,
   lname: String,

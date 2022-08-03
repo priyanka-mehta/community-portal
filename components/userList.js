@@ -14,7 +14,6 @@ const UserList = ({ users }) => {
   }
 
   const deleteUser = async (userId) => {
-    console.log(userId);
     const res = await fetch('/api/user/delete', {
       method: 'DELETE',
       headers: {
@@ -25,42 +24,58 @@ const UserList = ({ users }) => {
       }),
     });
     const data = await res.json();
+    setModalOpen(false);
     Router.push(`/user/${router.query.id}`);
   }
 
   return (
     <>
-      <div className="mt-3">
-        <table className="table table-striped table-hover user-list-table">
-          <thead>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Relation</th>
-            <th>Gender</th>
-            <th>Mobile Number</th>
-            <th>Date of Birth</th>
-            <th>Action</th>
-          </thead>
-          <tbody>
-            {(users || []).map((user, key) => (
-              <tr key={key}>
-                <td>{user.fname}</td>
-                <td>{user.mname}</td>
-                <td>{user.lname}</td>
-                <td>{user.relation}</td>
-                <td>{user.gender}</td>
-                <td>{user.mobileNumber}</td>
-                <td>{user.dob}</td>
-                <td>
-                  <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
-                  <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <table className="table table-hover">
+        <thead className="d-none d-md-table-header-group">
+          <tr>
+            <th className="d-sm-none d-md-table-cell">First Name</th>
+            <th className="d-sm-none d-md-table-cell">Middle Name</th>
+            <th className="d-sm-none d-md-table-cell">Last Name</th>
+            <th className="d-sm-none d-md-table-cell">Relation</th>
+            <th className="d-sm-none d-md-table-cell">Gender</th>
+            <th className="d-sm-none d-md-table-cell">Mobile Number</th>
+            <th className="d-sm-none d-md-table-cell">Date of Birth</th>
+            <th className="d-sm-none d-md-table-cell">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {(users || []).map((user, key) => (
+            <tr key={key}>
+              <td className="d-md-none d-table-cell">
+                <div className="card">
+                  <div className="card-body">
+                    <strong class="card-title">{user.fname} {user.mname} {user.lname}</strong>
+                    <p className="card-text">
+                      <b>Relation:</b> {user.relation}<br />
+                      <b>Gender:</b> {user.gender}<br />
+                      <b>Date of Birth:</b> {user.dob}<br />
+                      <b>Mobile Number: </b> {user.mobileNumber}<br />
+                    </p>
+                    <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
+                    <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
+                  </div>
+                </div>
+              </td>
+              <td className="d-none d-md-table-cell">{user.fname}</td>
+              <td className="d-none d-md-table-cell">{user.mname}</td>
+              <td className="d-none d-md-table-cell">{user.lname}</td>
+              <td className="d-none d-md-table-cell">{user.relation}</td>
+              <td className="d-none d-md-table-cell">{user.gender}</td>
+              <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
+              <td className="d-none d-md-table-cell">{user.dob}</td>
+              <td className="d-none d-md-table-cell">
+                <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
+                <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
       {/* Delete Modal */}
       {modalOpen &&
         <div className="modal fade show d-block">

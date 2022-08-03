@@ -89,7 +89,6 @@ const EditUser = ({ getUserDetail }) => {
   }
 
   const handleBlur = (name, value) => {
-    console.log(name, value);
     let errorObj = checkValidation(name, value);
     setError({ ...error, ...errorObj })
   };
