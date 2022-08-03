@@ -49,7 +49,7 @@ const UserList = ({ users }) => {
               <td className="d-md-none d-table-cell">
                 <div className="card">
                   <div className="card-body">
-                    <strong class="card-title">{user.fname} {user.mname} {user.lname}</strong>
+                    <strong className="card-title">{user.fname} {user.mname} {user.lname}</strong>
                     <p className="card-text">
                       <b>Relation:</b> {user.relation}<br />
                       <b>Gender:</b> {user.gender}<br />
