@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
 import Link from 'next/link';
+import Loading from './common/Loading';
 
-const UserList = ({ users }) => {
-  const router = useRouter();
-
+const UserList = () => {
+  const [familyList, setFamilyList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [userId, setUserId] = useState('');
+
+  useEffect(() => {
+    let familyId = localStorage.getItem('familyId');
+    if (familyId) {
+      setIsLoading(true)
+      fetch(`/api/user/list?familyId=${familyId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFamilyList(data?.user)
+          setIsLoading(false)
+        })
+    } else {
+      Router.push('/')
+    }
+  }, [])
 
   const deleteModal = (flag, id) => {
     setUserId(id)
@@ -14,18 +30,14 @@ const UserList = ({ users }) => {
   }
 
   const deleteUser = async (userId) => {
-    const res = await fetch('/api/user/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        userId
-      }),
-    });
-    const data = await res.json();
-    setModalOpen(false);
-    Router.push(`/user/${router.query.id}`);
+    setIsLoading(true)
+    fetch(`/api/user/delete?userId=${userId}`, { method: 'DELETE' })
+      .then(() => {
+        setModalOpen(false);
+        setIsLoading(false)
+        let updatedUsers = familyList.filter(i => i._id !== userId);
+        setFamilyList(updatedUsers)
+      });
   }
 
   return (
@@ -44,7 +56,7 @@ const UserList = ({ users }) => {
           </tr>
         </thead>
         <tbody>
-          {(users || []).map((user, key) => (
+          {(familyList || []).map((user, key) => (
             <tr key={key}>
               <td className="d-md-none d-table-cell">
                 <div className="card">
@@ -76,6 +88,8 @@ const UserList = ({ users }) => {
           ))}
         </tbody>
       </table>
+      {isLoading ? <Loading /> : null}
+
       {/* Delete Modal */}
       {modalOpen &&
         <div className="modal fade show d-block">

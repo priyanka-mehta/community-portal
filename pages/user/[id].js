@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Link from "next/link";
-import Router from "next/router";
 import UserList from '../../components/userList';
 import Navbar from '../../components/Navbar';
-import Loading from '../../components/common/Loading';
 
 const Id = () => {
-  const [familyId, setFamilyId] = useState('')
-  const [familyList, setFamilyList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    let familyId = localStorage.getItem('familyId');
-    setFamilyId(familyId);
-    if (familyId) {
-      setIsLoading(true)
-      fetch(`/api/user/list?familyId=${familyId}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setFamilyList(data)
-          setIsLoading(false)
-        })
-    } else {
-      Router.push('/')
-    }
-  }, [])
+  const familyId = localStorage.getItem('familyId');
 
   return (
     <>
@@ -35,8 +16,7 @@ const Id = () => {
             Add Family Member
           </button>
         </Link>
-        <UserList users={familyList?.user} />
-        {isLoading ? <Loading /> : null}
+        <UserList familyId={familyId} />
       </div>
     </>
   );
