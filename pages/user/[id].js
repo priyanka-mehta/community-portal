@@ -5,12 +5,14 @@ import UserList from '../../components/userList';
 import Navbar from '../../components/Navbar';
 import Loading from '../../components/common/Loading';
 
-const Id = ({ familyId }) => {
+const Id = () => {
+  const [familyId, setFamilyId] = useState('')
   const [familyList, setFamilyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let familyId = localStorage.getItem('familyId');
+    setFamilyId(familyId);
     if (familyId) {
       setIsLoading(true)
       fetch(`/api/user/list?familyId=${familyId}`)
