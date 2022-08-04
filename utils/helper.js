@@ -11,16 +11,17 @@ export const fullDate = `${year}-${month}-${date}`;
 
 
 export const GenderOptions = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' }
+  { value: 'Male', label: 'Male' },
+  { value: 'Female', label: 'Female' }
 ];
 
 export const RelationOptions = [
-    { value: 'Self', label: 'Self' },
-    { value: 'Wife', label: 'Wife' },
-    { value: 'Son', label: 'Son' },
-    { value: 'Daughter', label: 'Daughter' },
-    { value: 'Daughter-in-law', label: 'Daughter-in-law' },
-    { value: 'Grand-son', label: 'Grand-son' },
-    { value: 'Grand-daughter', label: 'Grand-daughter' }
+  { value: 'Self', label: 'Self' },
+  { value: 'Wife', label: 'Wife' },
+  { value: 'Husband', label: 'Husband' },
+  { value: 'Son', label: 'Son' },
+  { value: 'Daughter', label: 'Daughter' },
+  { value: 'Daughter-in-law', label: 'Daughter-in-law' },
+  { value: 'Grand-son', label: 'Grand-son' },
+  { value: 'Grand-daughter', label: 'Grand-daughter' }
 ]
