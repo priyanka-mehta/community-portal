@@ -1,35 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from "next/link";
-import connectMongo from '../../utils/connectMongo';
-import User from '../../models/userModel';
+import Router from "next/router";
 import UserList from '../../components/userList';
 import Navbar from '../../components/Navbar';
+import Loading from '../../components/common/Loading';
 
-export const getServerSideProps = async (req, res) => {
-  try {
-    console.log('CONNECTING TO MONGO');
-    await connectMongo();
-    console.log('CONNECTED TO MONGO');
-    console.log(req.query.id)
-    console.log('FETCHING DOCUMENTS');
-    const users = await User.find({ familyId: req.query.id });
-    console.log('FETCHED DOCUMENTS');
+const Id = ({ familyId }) => {
+  const [familyList, setFamilyList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    return {
-      props: {
-        users: JSON.parse(JSON.stringify(users)),
-        familyId: req.query.id
-      },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      notFound: true,
-    };
-  }
-};
+  useEffect(() => {
+    let familyId = localStorage.getItem('familyId');
+    if (familyId) {
+      setIsLoading(true)
+      fetch(`/api/user/list?familyId=${familyId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFamilyList(data)
+          setIsLoading(false)
+        })
+    } else {
+      Router.push('/')
+    }
+  }, [])
 
-const Id = ({ users, familyId }) => {
   return (
     <>
       <div className='user-list-nav'><Navbar /></div>
@@ -39,7 +33,8 @@ const Id = ({ users, familyId }) => {
             Add Family Member
           </button>
         </Link>
-        <UserList users={users} />
+        <UserList users={familyList?.user} />
+        {isLoading ? <Loading /> : null}
       </div>
     </>
   );
