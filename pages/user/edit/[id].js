@@ -94,7 +94,7 @@ const EditUser = ({ getUserDetail }) => {
   };
   return (
     <>
-      <Navbar />
+      <Navbar isLogout />
       <form className='container border border-3 mt-5 p-3'>
         <h3 className='mt-3'>Edit Family Member</h3>
         <div className="row mt-3">

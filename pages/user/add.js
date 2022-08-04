@@ -71,9 +71,11 @@ const AddUser = () => {
     setError({ ...error, ...errorObj })
   };
 
+  let headOfTheFamilyName = (router.query.familyId?.replace(/([A-Z])/g, ' $1').trim())?.split(' ')[0]
+
   return (
     <>
-      <Navbar />
+      <Navbar isLogout/>
       <form className='container border border-3 mt-5 p-3'>
         <h3 className='mt-3'>Add Family Member</h3>
         <div className="row mt-3">
@@ -113,7 +115,7 @@ const AddUser = () => {
         </div>
         <div className="row mt-3">
           <div className="col">
-            <label>Relation</label>
+            <label>Relation with {headOfTheFamilyName}</label>
             <Select
               defaultValue={user.relation}
               options={RelationOptions}

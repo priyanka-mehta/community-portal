@@ -69,7 +69,7 @@ const UserList = () => {
                       <b>Mobile Number: </b> {user.mobileNumber}<br />
                     </p>
                     <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
-                    <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
+                    {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
                   </div>
                 </div>
               </td>
@@ -82,7 +82,7 @@ const UserList = () => {
               <td className="d-none d-md-table-cell">{user.dob}</td>
               <td className="d-none d-md-table-cell">
                 <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
-                <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>
+                {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
               </td>
             </tr>
           ))}

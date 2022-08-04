@@ -9,7 +9,7 @@ const Id = () => {
 
   return (
     <>
-      <div className='user-list-nav'><Navbar /></div>
+      <div className='user-list-nav'><Navbar isLogout/></div>
       <div className='container mt-5'>
         <Link href={{ pathname: '/user/add', query: { familyId } }}>
           <button className='btn btn-primary'>
