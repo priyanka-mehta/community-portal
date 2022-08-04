@@ -16,9 +16,12 @@ const Login = () => {
     password: ''
   });
 
+  const [invalidError, setInvalidError] = useState('');
+
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
+    setInvalidError('')
     setLoginDetails({ ...loginDetails, [e.target.name]: e.target.value })
   }
 
@@ -54,6 +57,7 @@ const Login = () => {
         Router.push(`/user/${familyId}`);
         setIsLoading(false);
       } else {
+        setInvalidError("Invalid FamilyID and Password")
         Router.push('/');
         setIsLoading(false);
       }
@@ -63,6 +67,7 @@ const Login = () => {
   return (
     <form className='container border border-3 mt-5 p-3'>
       <h3 className='mt-3'>Login</h3>
+      <p className='text-danger'>{invalidError}</p>
       <div className="row mt-3">
         <div className="col">
           <Input
