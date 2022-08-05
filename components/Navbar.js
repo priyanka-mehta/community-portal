@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import Image from 'next/image';
 
 const Navbar = ({ isLogout }) => {
 
@@ -10,7 +11,12 @@ const Navbar = ({ isLogout }) => {
 
   return (
     <nav className="navigation navbar-dark bg-primary">
-      <img src="/logo.png" alt="" width="50" height="50" className="d-inline-block align-text-center" />
+      <Image
+        src="/logo.png"
+        width={50}
+        height={50}
+        className="d-inline-block align-text-center"
+      />
       <p className='ms-2 text-white w-75'>
         Shree Visa Shreemadi Oswal Kutchi Gurjar Jain Samaj
       </p>
