@@ -15,6 +15,7 @@ const Navbar = ({ isLogout }) => {
         src="/logo.png"
         width={50}
         height={50}
+        alt="Logo"
         className="d-inline-block align-text-center"
       />
       <p className='ms-2 text-white w-75'>
