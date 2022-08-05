@@ -75,7 +75,7 @@ const Login = () => {
         <div className='col-md-6 offset-md-3'>
           <p className='text-danger'>{invalidError}</p>
           <div className='card'>
-            <div class="card-header">
+            <div className="card-header">
               <h5>Login</h5>
             </div>
             <div className='card card-body'>
