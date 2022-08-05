@@ -19,6 +19,7 @@ const Login = () => {
   const [invalidError, setInvalidError] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleChange = (e) => {
     setInvalidError('')
@@ -39,7 +40,7 @@ const Login = () => {
 
     setError({ ...obj })
 
-    if (error.familyId === '' && error.password === '') {
+    if (loginDetails.familyId !== '' && loginDetails.password !== '') {
       setIsLoading(true);
       const res = await fetch('/api/user/login', {
         method: 'POST',
@@ -64,38 +65,57 @@ const Login = () => {
     }
   }
 
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
+  };
+
   return (
-    <form className='container border border-3 mt-5 p-3'>
-      <h3 className='mt-3'>Login</h3>
-      <p className='text-danger'>{invalidError}</p>
-      <div className="row mt-3">
-        <div className="col">
-          <Input
-            label="Family ID"
-            name="familyId"
-            onChange={handleChange}
-            value={loginDetails.familyId}
-            errorMsg={error.familyId}
-            onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-          />
+    <div className='container mt-5 p-3'>
+      <div className='row'>
+        <div className='col-md-6 offset-md-3'>
+          <p className='text-danger'>{invalidError}</p>
+          <div className='card'>
+            <div class="card-header">
+              <h5>Login</h5>
+            </div>
+            <div className='card card-body'>
+              <div className='form-group mb-2'>
+                <Input
+                  label="Family ID"
+                  name="familyId"
+                  onChange={handleChange}
+                  value={loginDetails.familyId}
+                  errorMsg={error.familyId}
+                  onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+                />
+              </div>
+              <div className='form-group mb-2'>
+                <label>Password</label>
+                <div className="input-group">
+                  <input
+                    className="form-control"
+                    name="password"
+                    onChange={handleChange}
+                    value={loginDetails.password}
+                    type={passwordShown ? "text" : "password"}
+                    icon={passwordShown ? "bi bi-eye-slash" : "bi bi-eye"}
+                    onBlur={(e) => handleBlur(e.target.name, e.target.value)}
+                  />
+                  <div className="input-group-addon ms-auto">
+                    <button className='btn bg-light' onClick={() => togglePassword()}>
+                      <i className={passwordShown ? "fa fa-eye" : "fa fa-eye-slash"} aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <span className='text-danger'>{error.password}</span>
+              </div>
+              <button type='submit' className="btn btn-primary mt-2" onClick={(e) => handleLogin(e)}>Submit</button>
+              {isLoading ? <Loading /> : null}
+            </div>
+          </div>
         </div>
       </div>
-      <div className="row mt-3">
-        <div className="col">
-          <Input
-            label="Password"
-            name="password"
-            onChange={handleChange}
-            value={loginDetails.password}
-            type="password"
-            errorMsg={error.password}
-            onBlur={(e) => handleBlur(e.target.name, e.target.value)}
-          />
-        </div>
-      </div>
-      {isLoading ? <Loading /> : null}
-      <button type='submit' className="btn btn-primary mt-2" onClick={(e) => handleLogin(e)}>Submit</button>
-    </form>
+    </div>
   );
 }
 

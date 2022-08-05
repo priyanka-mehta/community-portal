@@ -71,11 +71,11 @@ const AddUser = () => {
     setError({ ...error, ...errorObj })
   };
 
-  let headOfTheFamilyName = (router.query.familyId?.replace(/([A-Z])/g, ' $1').trim())?.split(' ')[0]
+  let headOfTheFamilyName = (router.query.familyId)?.slice(0, -2)
 
   return (
     <>
-      <Navbar isLogout/>
+      <Navbar isLogout />
       <form className='container border border-3 mt-5 p-3'>
         <h3 className='mt-3'>Add Family Member</h3>
         <div className="row mt-3">
