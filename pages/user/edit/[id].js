@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import connectMongo from '../../../utils/connectMongo';
-import User from '../../../models/userModel';
 import Select from 'react-select';
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import Input from '../../../components/common/Input';
 import { checkValidation, handleSubmitValidation } from '../../../components/common/Validation';
 import Navbar from '../../../components/Navbar';
 import { fullDate, RelationOptions, GenderOptions } from '../../../utils/helper';
+import Loading from '../../../components/common/Loading';
 
 export const getServerSideProps = async (req, res) => {
   try {
-    await connectMongo();
-    const user = await User.find({ _id: req.query.id });
     return {
-      props: {
-        getUserDetail: (JSON.parse(JSON.stringify(user)))[0]
-      },
+      props: { userId: req.query.id }
     };
   } catch (error) {
     console.log(error);
@@ -25,8 +20,7 @@ export const getServerSideProps = async (req, res) => {
   }
 };
 
-const EditUser = ({ getUserDetail }) => {
-  const router = useRouter();
+const EditUser = ({ userId }) => {
   const [user, setUser] = useState({
     fname: '',
     mname: '',
@@ -46,13 +40,32 @@ const EditUser = ({ getUserDetail }) => {
     dob: ''
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
-    setUser({
-      ...getUserDetail,
-      gender: { label: getUserDetail.gender, value: getUserDetail.gender },
-      relation: { label: getUserDetail.relation, value: getUserDetail.relation }
-    })
+    let familyId = localStorage.getItem('familyId');
+    if (familyId) {
+      getSingleUser()
+    } else {
+      Router.push('/')
+    }
   }, []);
+
+  const getSingleUser = () => {
+    if (userId) {
+      setIsLoading(true);
+      fetch(`/api/user/single-user?userId=${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setUser({
+            ...data?.user[0],
+            gender: { label: data?.user[0].gender, value: data?.user[0].gender },
+            relation: { label: data?.user[0].relation, value: data?.user[0].relation }
+          })
+          setIsLoading(false)
+        })
+    }
+  }
 
   const editUser = async (e) => {
     e.preventDefault();
@@ -80,7 +93,7 @@ const EditUser = ({ getUserDetail }) => {
         }),
       });
       const data = await res.json();
-      Router.push(`/user/${getUserDetail.familyId}`);
+      Router.push(`/user/${user.familyId}`);
     }
   };
 
@@ -183,6 +196,7 @@ const EditUser = ({ getUserDetail }) => {
           <button type="submit" className="btn btn-primary mt-2" onClick={editUser}>Submit</button>
         </div>
       </form>
+      {isLoading ? <Loading /> : null}
     </>
   );
 }
