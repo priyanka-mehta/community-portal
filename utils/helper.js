@@ -17,6 +17,8 @@ export const GenderOptions = [
 
 export const RelationOptions = [
   { value: 'Self', label: 'Self' },
+  { value: 'Mother', label: 'Mother' },
+  { value: 'Father', label: 'Father' },
   { value: 'Brother', label: 'Brother' },
   { value: 'Sister', label: 'Sister' },
   { value: 'Wife', label: 'Wife' },
