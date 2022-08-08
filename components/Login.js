@@ -55,7 +55,11 @@ const Login = () => {
       const data = await res.json();
       if (data.statusCode === 200) {
         localStorage.setItem('familyId', familyId);
-        Router.push(`/user/${familyId}`);
+        if (familyId === 'Admin') {
+          Router.push('/user')
+        } else {
+          Router.push(`/user/${familyId}`);
+        }
         setIsLoading(false);
       } else {
         setInvalidError("Invalid FamilyID and Password")
