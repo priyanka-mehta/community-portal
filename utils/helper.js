@@ -17,11 +17,14 @@ export const GenderOptions = [
 
 export const RelationOptions = [
   { value: 'Self', label: 'Self' },
+  { value: 'Brother', label: 'Brother' },
+  { value: 'Sister', label: 'Sister' },
   { value: 'Wife', label: 'Wife' },
   { value: 'Husband', label: 'Husband' },
   { value: 'Son', label: 'Son' },
   { value: 'Daughter', label: 'Daughter' },
   { value: 'Daughter-in-law', label: 'Daughter-in-law' },
   { value: 'Grand-son', label: 'Grand-son' },
-  { value: 'Grand-daughter', label: 'Grand-daughter' }
+  { value: 'Grand-daughter', label: 'Grand-daughter' },
+  { value: 'Grand-daughter-in-law', label: 'Grand-daughter-in-law' }
 ]

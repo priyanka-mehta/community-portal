@@ -19,7 +19,7 @@ const Navbar = ({ isLogout }) => {
         className="d-inline-block align-text-center"
       />
       <p className='ms-2 text-white w-75'>
-        Shree Visa Shreemadi Oswal Kutchi Gurjar Jain Samaj
+        Shree Visa Shrimali Oswal Kutchi Gurjar Jain Samaj
       </p>
       {isLogout ? <button className='btn btn-danger' onClick={handleLogout}>Logout</button> : null}
     </nav>
