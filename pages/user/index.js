@@ -45,7 +45,7 @@ const UserList = () => {
           {Object.keys(allUsers).map((id) => {
             return <>
               <tr>
-                <td className="d-none d-md-table-cell text-center" colspan="8">=============================================================================================================================================</td>
+                <td className="d-none d-md-table-cell text-center" colSpan="8">=============================================================================================================================================</td>
               </tr>
               {allUsers[id].map((user, unique) => {
                 return <>
