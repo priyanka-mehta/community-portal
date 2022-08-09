@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Loading from '../../components/common/Loading';
+import Navbar from '../../components/Navbar';
 
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,46 +28,49 @@ const UserList = () => {
     }
   }, [])
   return (
-    <div className='container'>
-      <table className="table table-hover">
-        <thead className="d-none d-md-table-header-group">
-          <tr>
-            <th className="d-sm-none d-md-table-cell">Family ID</th>
-            <th className="d-sm-none d-md-table-cell">First Name</th>
-            <th className="d-sm-none d-md-table-cell">Middle Name</th>
-            <th className="d-sm-none d-md-table-cell">Last Name</th>
-            <th className="d-sm-none d-md-table-cell">Relation</th>
-            <th className="d-sm-none d-md-table-cell">Gender</th>
-            <th className="d-sm-none d-md-table-cell">Mobile Number</th>
-            <th className="d-sm-none d-md-table-cell">Date of Birth</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.keys(allUsers).map((id) => {
-            return <>
-              <tr>
-                <td className="d-none d-md-table-cell text-center" colSpan="8">=============================================================================================================================================</td>
-              </tr>
-              {allUsers[id].map((user, unique) => {
-                return <>
-                  <tr key={unique}>
-                    <td className="d-none d-md-table-cell">{user.familyId}</td>
-                    <td className="d-none d-md-table-cell">{user.fname}</td>
-                    <td className="d-none d-md-table-cell">{user.mname}</td>
-                    <td className="d-none d-md-table-cell">{user.lname}</td>
-                    <td className="d-none d-md-table-cell">{user.relation}</td>
-                    <td className="d-none d-md-table-cell">{user.gender}</td>
-                    <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
-                    <td className="d-none d-md-table-cell">{user.dob}</td>
-                  </tr>
-                </>
-              })}
-            </>
-          })}
-        </tbody>
-      </table>
-      {isLoading ? <Loading /> : null}
-    </div>
+    <>
+      <Navbar isLogout/>
+      <div className='container'>
+        <table className="table table-hover">
+          <thead className="d-none d-md-table-header-group">
+            <tr>
+              <th className="d-sm-none d-md-table-cell">Family ID</th>
+              <th className="d-sm-none d-md-table-cell">First Name</th>
+              <th className="d-sm-none d-md-table-cell">Middle Name</th>
+              <th className="d-sm-none d-md-table-cell">Last Name</th>
+              <th className="d-sm-none d-md-table-cell">Relation</th>
+              <th className="d-sm-none d-md-table-cell">Gender</th>
+              <th className="d-sm-none d-md-table-cell">Mobile Number</th>
+              <th className="d-sm-none d-md-table-cell">Date of Birth</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.keys(allUsers).map((id) => {
+              return <>
+                <tr>
+                  <td className="d-none d-md-table-cell text-center" colSpan="8">=============================================================================================================================================</td>
+                </tr>
+                {allUsers[id].map((user, unique) => {
+                  return <>
+                    <tr key={unique}>
+                      <td className="d-none d-md-table-cell">{user.familyId}</td>
+                      <td className="d-none d-md-table-cell">{user.fname}</td>
+                      <td className="d-none d-md-table-cell">{user.mname}</td>
+                      <td className="d-none d-md-table-cell">{user.lname}</td>
+                      <td className="d-none d-md-table-cell">{user.relation}</td>
+                      <td className="d-none d-md-table-cell">{user.gender}</td>
+                      <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
+                      <td className="d-none d-md-table-cell">{user.dob}</td>
+                    </tr>
+                  </>
+                })}
+              </>
+            })}
+          </tbody>
+        </table>
+        {isLoading ? <Loading /> : null}
+      </div>
+    </>
   );
 }
 
