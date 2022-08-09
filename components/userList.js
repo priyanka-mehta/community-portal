@@ -3,21 +3,22 @@ import Router from 'next/router';
 import Link from 'next/link';
 import Loading from './common/Loading';
 
-const UserList = () => {
+const UserList = (props) => {
   const [familyList, setFamilyList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    let familyId = localStorage.getItem('familyId');
-    if (familyId) {
+    if (props.familyId) {
       setIsLoading(true)
-      fetch(`/api/user/list?familyId=${familyId}`)
+      fetch(`/api/user/list?familyId=${props.familyId}`)
         .then((res) => res.json())
         .then((data) => {
-          setFamilyList(data?.user)
-          setIsLoading(false)
+          setFamilyList(data?.user);
+          let hof = data?.user.find(i => i.relation === 'Self').fname;
+          props.setHof(hof);
+          setIsLoading(false);
         })
     } else {
       Router.push('/')
@@ -68,7 +69,7 @@ const UserList = () => {
                       <b>Date of Birth:</b> {user.dob}<br />
                       <b>Mobile Number: </b> {user.mobileNumber}<br />
                     </p>
-                    <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
+                    <Link href={{ pathname: `/user/edit/${user._id}`, query: { hof: props.hof } }}><button className='btn btn-primary me-2'> Edit </button></Link>
                     {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
                   </div>
                 </div>
@@ -81,7 +82,7 @@ const UserList = () => {
               <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
               <td className="d-none d-md-table-cell">{user.dob}</td>
               <td className="d-none d-md-table-cell">
-                <Link href={{ pathname: `/user/edit/${user._id}` }}><button className='btn btn-primary me-2'> Edit </button></Link>
+                <Link href={{ pathname: `/user/edit/${user._id}`, query: { hof: props.hof } }}><button className='btn btn-primary me-2'> Edit </button></Link>
                 {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
               </td>
             </tr>

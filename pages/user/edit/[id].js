@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import Input from '../../../components/common/Input';
 import { checkValidation, handleSubmitValidation } from '../../../components/common/Validation';
 import Navbar from '../../../components/Navbar';
@@ -21,6 +21,7 @@ export const getServerSideProps = async (req, res) => {
 };
 
 const EditUser = ({ userId }) => {
+  const router = useRouter();
   const [user, setUser] = useState({
     fname: '',
     mname: '',
@@ -147,7 +148,7 @@ const EditUser = ({ userId }) => {
         </div>
         <div className="row mt-3">
           <div className="col">
-            <label>Relation</label>
+            <label>Relation with {router.query?.hof}</label>
             <Select
               defaultValue={user.relation}
               options={RelationOptions}

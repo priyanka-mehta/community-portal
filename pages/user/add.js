@@ -71,8 +71,6 @@ const AddUser = () => {
     setError({ ...error, ...errorObj })
   };
 
-  let headOfTheFamilyName = (router.query.familyId)?.slice(0, -2)
-
   return (
     <>
       <Navbar isLogout />
@@ -115,7 +113,7 @@ const AddUser = () => {
         </div>
         <div className="row mt-3">
           <div className="col">
-            <label>Relation with {headOfTheFamilyName}</label>
+            <label>Relation with {router.query?.hof}</label>
             <Select
               defaultValue={user.relation}
               options={RelationOptions}
