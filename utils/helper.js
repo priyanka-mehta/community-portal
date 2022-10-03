@@ -29,4 +29,6 @@ export const RelationOptions = [
   { value: 'Grand-son', label: 'Grand-son' },
   { value: 'Grand-daughter', label: 'Grand-daughter' },
   { value: 'Grand-daughter-in-law', label: 'Grand-daughter-in-law' }
-]
+];
+
+export const months = ["January", "February", "March","April", "May", "June", "July", "August", "September", "October", "November", "December"];

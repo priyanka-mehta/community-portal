@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import Loading from '../../components/common/Loading';
 import Navbar from '../../components/Navbar';
+import { months } from '../../utils/helper';
 
 const UserList = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +52,10 @@ const UserList = () => {
                   <td className="d-none d-md-table-cell text-center" colSpan="8">=============================================================================================================================================</td>
                 </tr>
                 {allUsers[id].map((user, unique) => {
+                  let dobYear = user.dob && user.dob.split(/[-]/)[0];
+                  let dobMonth = user.dob && user.dob.split(/[-]/)[1];
+                  let dobDate = user.dob && user.dob.split(/[-]/)[2];
+                  let finalDate = dobDate + '  '+ months[dobMonth-1] + '  ' + dobYear;
                   return <>
                     <tr key={unique}>
                       <td className="d-none d-md-table-cell">{user.familyId}</td>
@@ -60,7 +65,7 @@ const UserList = () => {
                       <td className="d-none d-md-table-cell">{user.relation}</td>
                       <td className="d-none d-md-table-cell">{user.gender}</td>
                       <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
-                      <td className="d-none d-md-table-cell">{user.dob}</td>
+                      <td className="d-none d-md-table-cell">{finalDate}</td>
                     </tr>
                   </>
                 })}
