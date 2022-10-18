@@ -69,8 +69,8 @@ const UserList = (props) => {
                       <b>Date of Birth:</b> {user.dob}<br />
                       <b>Mobile Number: </b> {user.mobileNumber}<br />
                     </p>
-                    {/* <Link href={{ pathname: `/user/edit/${user._id}`, query: { hof: props.hof } }}><button className='btn btn-primary me-2'> Edit </button></Link>
-                    {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>} */}
+                    <Link href={{ pathname: `/user/edit/${user._id}`, query: { hof: props.hof } }}><button className='btn btn-primary me-2'> Edit </button></Link>
+                    {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
                   </div>
                 </div>
               </td>
@@ -81,10 +81,10 @@ const UserList = (props) => {
               <td className="d-none d-md-table-cell">{user.gender}</td>
               <td className="d-none d-md-table-cell">{user.mobileNumber}</td>
               <td className="d-none d-md-table-cell">{user.dob}</td>
-              {/* <td className="d-none d-md-table-cell">
+              <td className="d-none d-md-table-cell">
                 <Link href={{ pathname: `/user/edit/${user._id}`, query: { hof: props.hof } }}><button className='btn btn-primary me-2'> Edit </button></Link>
                 {user.relation === 'Self' ? null : <button className='btn btn-danger' onClick={() => deleteModal(true, user._id)}> Delete </button>}
-              </td> */}
+              </td>
             </tr>
           ))}
         </tbody>
